@@ -1,2 +1,39 @@
 <?xml version='1.0' encoding='utf-8'?>
-<plugin id="cordova-hms-map-kit" version="0.0.1" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android"><name>HMSMapKit</name><js-module name="HMSMapKit" src="www/HMSMapKit.js"><clobbers target="cordova.plugins.HMSMapKit" /></js-module><platform name="android"><config-file parent="/*" target="res/xml/config.xml"><feature name="HMSMapKit"><param name="android-package" value="cordova-hms-map-kit.HMSMapKit" /></feature></config-file><config-file parent="/*" target="AndroidManifest.xml"></config-file><source-file src="src/android/HMSMapKit.java" target-dir="src/cordova-hms-map-kit/HMSMapKit" /></platform></plugin>
+<plugin 
+	id="cordova-hms-map-kit" 
+	version="0.0.1" 
+	xmlns="http://apache.org/cordova/ns/plugins/1.0" 
+	xmlns:android="http://schemas.android.com/apk/res/android">
+	<name>HMSMapKit</name>
+	<js-module 
+		name="HMSMapKit"
+		src="www/HMSMapKit.js">
+		<clobbers target="cordova.plugins.HMSMapKit" />
+	</js-module>
+	<platform name="android">
+		<!-- hook for add maven repositories and agc plugin-->
+    	<hook type="after_plugin_install" src="scripts/android/after_plugin_install.js" />
+    	<hook type="before_plugin_uninstall" src="scripts/android/before_plugin_uninstall.js" />
+    	<framework src="src/android/build.gradle" custom="true" type="gradleReference" />
+    	<!-- Map Kit dependency-->
+        <framework src="com.huawei.hms:maps:4.0.0.300" />
+		<config-file 
+			parent="/*" 
+			target="res/xml/config.xml">
+			<feature name="HMSMapKit">
+				<param 
+					name="android-package" 
+					value="cordova.hms.map.kit.HMSMapKit" />
+			</feature>
+		</config-file>
+		<config-file 
+			parent="/*" 
+			target="AndroidManifest.xml">
+		</config-file>
+		<source-file 
+			src="src/android/HMSMapKit.java"
+			target-dir="src/cordova/hms/map/kit/HMSMapKit/" />
+	</platform>
+	<!-- Script help to copy agconnect-services.json to right places-->
+    <hook type="after_prepare" src="scripts/after_prepare.js" />
+</plugin>
