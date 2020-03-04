@@ -16,7 +16,7 @@
     	<hook type="before_plugin_uninstall" src="scripts/android/before_plugin_uninstall.js" />
     	<framework src="src/android/build.gradle" custom="true" type="gradleReference" />
     	<!-- Map Kit dependency-->
-        <framework src="com.huawei.hms:maps:4.0.0.300" />
+        <framework src="com.huawei.hms:maps:4.0.0.301" />
 		<config-file 
 			parent="/*" 
 			target="res/xml/config.xml">
@@ -33,6 +33,7 @@
 		<source-file 
 			src="src/android/HMSMapKit.java"
 			target-dir="src/cordova/hms/map/kit/HMSMapKit/" />
+		<!-- <resource-file src="src/android/res/layout/dummy_infowindow.xml" target="res/layout/dummy_infowindow.xml"/> -->
 	</platform>
 	<!-- Script help to copy agconnect-services.json to right places-->
     <hook type="after_prepare" src="scripts/after_prepare.js" />
