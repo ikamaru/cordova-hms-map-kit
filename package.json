@@ -1,0 +1,25 @@
+{
+  "name": "cordova-hms-map-kit",
+  "version": "0.0.1",
+  "description": "",
+  "cordova": {
+    "id": "cordova-hms-map-kit",
+    "platforms": [
+      "android"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ikamaru/cordova-hms-map-kit.git"
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "author": "ikamaru",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ikamaru/cordova-hms-map-kit/issues"
+  },
+  "homepage": "https://github.com/ikamaru/cordova-hms-map-kit#readme"
+}
