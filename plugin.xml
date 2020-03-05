@@ -39,15 +39,15 @@
 		    <uses-permission android:name="android.permission.INTERNET" />
 		    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	    </config-file>
-	    <config-file target="AndroidManifest.xml" parent="/manifest/application">
+	   <!--  <config-file target="AndroidManifest.xml" parent="/manifest/application">
             <activity android:label="Map Activity" android:name="cordova.hms.map.kit.NewActivity"></activity>
-        </config-file>
+        </config-file> -->
         <config-file parent="/*" target="AndroidManifest.xml"></config-file>
 		<source-file src="src/android/HMSMapKit.java" target-dir="src/cordova/hms/map/kit/" />
-		<source-file src="src/android/NewActivity.java" target-dir="src/cordova/hms/map/kit/" />
+		<!-- <source-file src="src/android/NewActivity.java" target-dir="src/cordova/hms/map/kit/" /> -->
         <source-file src="src/android/res/layout/activity_new.xml" target-dir="res/layout"/>
         <source-file src="src/android/res/drawable/ic_launcher_background.xml" target-dir="res/drawable"/>
-        <source-file src="src/android/res/drawable/badge_ph.jpg" target-dir="res/drawable"/>
+        <source-file src="src/android/res/drawable/badge_ph.png" target-dir="res/drawable"/>
 	</platform>
 	<!-- Script help to copy agconnect-services.json to right places-->
     <hook type="after_prepare" src="scripts/after_prepare.js" />
