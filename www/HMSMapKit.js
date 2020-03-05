@@ -6,3 +6,6 @@ exports.coolMethod = function (arg0, success, error) {
 exports.addTwoNumbers = function (arg0,arg1, success, error) {
     exec(success, error, 'HMSMapKit', 'addTwoNumbers', [arg0,arg1]);
 };
+exports.loadMap = function () {
+    exec(function(res){}, function(err){}, 'HMSMapKit', 'loadMap', []);
+};
