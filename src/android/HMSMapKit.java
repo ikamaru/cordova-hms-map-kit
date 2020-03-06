@@ -26,6 +26,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.huawei.hms.api.HuaweiApiAvailability;
 import com.huawei.hms.maps.MapView;
 import com.huawei.hms.maps.CameraUpdate;
 import com.huawei.hms.maps.CameraUpdateFactory;
@@ -66,6 +69,13 @@ public class HMSMapKit extends CordovaPlugin {
         }else if(action.equals("loadMapWithMarkers")) {
             this.loadMapWithMarkers(args.getJSONObject(0),callbackContext);
             return true;
+        }else if(action.equals("isHMSAvailable")) {
+            this.isHMSAvailable(callbackContext);
+            return true;
+        }
+        else if(action.equals("isGMSAvailable")) {
+          this.isGMSAvailable(callbackContext);
+          return true;
         }
         return false;
     }
@@ -76,6 +86,26 @@ public class HMSMapKit extends CordovaPlugin {
         } else {
             callbackContext.error("Expected one non-empty string argument.");
         }
+    }
+    private void isHMSAvailable(CallbackContext callbackContext) {
+      int available = HuaweiApiAvailability.getInstance().isHuaweiMobileServicesAvailable(cordova.getActivity());
+      if(available == com.huawei.hms.api.ConnectionResult.SUCCESS) {
+        //everything is fine and the user can make map requests
+        Log.d(TAG, "isServicesOK: HMS is working");
+        callbackContext.success("HMS exists");
+      } else {
+        callbackContext.error("no GMS");
+      }
+    }
+    private void isGMSAvailable(CallbackContext callbackContext) {
+      int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(cordova.getActivity());
+      if(available == ConnectionResult.SUCCESS) {
+        //everything is fine and the user can make map requests
+        Log.d(TAG, "isServicesOK: GMS is working");
+        callbackContext.success("GMS exists");
+      } else {
+        callbackContext.error("no GMS");
+      }
     }
 
     /*private void loadMap() {

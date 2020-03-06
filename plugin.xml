@@ -18,6 +18,7 @@
     	<!-- Map Kit dependency-->
         <framework src="com.huawei.hms:maps:4.0.0.301" />
         <framework src="androidx.appcompat:appcompat:1.0.2" />
+        <framework src="com.google.android.gms:play-services-base:17.1.0" />
 		<config-file 
 			parent="/*" 
 			target="res/xml/config.xml">
