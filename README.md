@@ -1,6 +1,8 @@
 # cordova-hms-map-kit
 A cordova plugin to use the following [Huawei Map Kit](https://developer.huawei.com/consumer/en/hms/huawei-MapKit)
 
+[demo](https://github.com/ikamaru/ionic-hmsMapKitDemo)
+
 ### Getting Started
 Create a new ionic project
 ```
