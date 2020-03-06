@@ -15,5 +15,6 @@ exports.coolMethod = function (arg0, success, error) {
 
 */
 exports.loadMapWithMarkers = function (markersJson,success,error) {
-    exec(function(res){}, function(err){}, 'HMSMapKit', 'loadMapWithMarkers', [markersJson]);
+    exec(success, error,'HMSMapKit', 'loadMapWithMarkers', [markersJson]);
+    //exec(function(res){}, function(err){}, 'HMSMapKit', 'loadMapWithMarkers', [markersJson]);
 };

@@ -64,7 +64,7 @@ public class HMSMapKit extends CordovaPlugin {
             this.coolMethod(message, callbackContext);
             return true;
         }else if(action.equals("loadMapWithMarkers")) {
-            this.loadMapWithMarkers(args.getJSONObject(0));
+            this.loadMapWithMarkers(args.getJSONObject(0),callbackContext);
             return true;
         }
         return false;
@@ -89,7 +89,7 @@ public class HMSMapKit extends CordovaPlugin {
         });
 
     }*/
-    private synchronized void loadMapWithMarkers(JSONObject markers){
+    private synchronized void loadMapWithMarkers(JSONObject markers,CallbackContext callbackContext){
       Log.d(TAG, "onMap not Ready: ");
       final CordovaInterface cordova=this.cordova;
       Runnable runnable=new Runnable() {
@@ -124,27 +124,30 @@ public class HMSMapKit extends CordovaPlugin {
 
               Log.d(TAG, "onMapReady: ");
               try {
-                Toast.makeText(cordova.getContext(), "onMapReady:", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(cordova.getContext(), "onMapReady:", Toast.LENGTH_SHORT).show();
                 // after call getMapAsync method ,we can get HuaweiMap instance in this call back method
                 HuaweiMap hmap = huaweiMap;
                 hmap.setMyLocationEnabled(true);
 
                 // move camera by CameraPosition param ,latlag and zoom params can set here
-                CameraPosition build = new CameraPosition.Builder().target(new LatLng(60, 60)).zoom(5).build();
-
+                CameraPosition build = new CameraPosition.Builder().target(new LatLng(33.8869, 9.5375)).zoom(5).build();
                 CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(build);
                 hmap.animateCamera(cameraUpdate);
                 hmap.setMaxZoomPreference(20);
                 hmap.setMinZoomPreference(2);
                 JSONArray markersArr=markers.getJSONArray("markers");
                 for(int i=0;i<markersArr.length();i++){
-                  Log.d(TAG, "onMapReady: sni "+markersArr.getJSONObject(i).getString("title")+" "+markersArr.getJSONObject(i).getString("lng")+" "+markersArr.getJSONObject(i).getString("lat")+" "+markersArr.getJSONObject(i).getString("snippet"));
+                  //if the jsonmarker doesn't contain lat or lng go to the next one
+                  if(!markersArr.getJSONObject(i).has("lat") || !markersArr.getJSONObject(i).has("lng") )
+                    continue;
                   Marker tmpMarker = hmap.addMarker(new MarkerOptions()
                     .position(new LatLng(Double.parseDouble(markersArr.getJSONObject(i).getString("lat")), Double.parseDouble(markersArr.getJSONObject(i).getString("lng"))))
-                    .snippet(markersArr.getJSONObject(i).getString("snippet"))
-                    .title(markersArr.getJSONObject(i).getString("title"))
                     .icon(BitmapDescriptorFactory.fromResource(resources.getIdentifier("badge_ph","drawable",package_name)))
                     .clusterable(true));
+                  if(markersArr.getJSONObject(i).has("snippet"))
+                    tmpMarker.setSnippet(markersArr.getJSONObject(i).getString("snippet"));
+                  if(markersArr.getJSONObject(i).has("title"))
+                    tmpMarker.setTitle(markersArr.getJSONObject(i).getString("title"));
                 }
                 /*
 
@@ -161,21 +164,23 @@ public class HMSMapKit extends CordovaPlugin {
                   @Override
                   public boolean onMarkerClick(Marker marker) {
                     //send an event to typescript
-                    Toast.makeText(cordova.getContext(), "title:" + marker.getTitle(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(cordova.getContext(), "title:" + marker.getTitle(), Toast.LENGTH_SHORT).show();
                     return false;
                   }
                 });
                 hmap.setOnInfoWindowClickListener(new HuaweiMap.OnInfoWindowClickListener() {
                   @Override
                   public void onInfoWindowClick(Marker marker) {
-                    Toast.makeText(cordova.getContext(), "snippet:" + marker.getSnippet(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(cordova.getContext(), "snippet:" + marker.getSnippet(), Toast.LENGTH_SHORT).show();
                   }
                 });
                 Log.d(TAG, "onMapShow: ");
+                callbackContext.success("map loaded");
                 //callbackContext.success("nice");
               }catch(Exception e){
                 Log.d(TAG, "onMapErrJson: "+e.getMessage());
-                Toast.makeText(cordova.getContext(), "onMapErrJson: "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                callbackContext.error("err : "+e.getMessage());
+                //Toast.makeText(cordova.getContext(), "onMapErrJson: "+e.getMessage(), Toast.LENGTH_SHORT).show();
                 //callbackContext.error("onMapErrJson: "+e.getMessage());
               }
             }
