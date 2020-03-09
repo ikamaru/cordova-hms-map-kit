@@ -53,7 +53,7 @@ public class HMSMapKit extends CordovaPlugin {
     private static final String[] RUNTIME_PERMISSIONS = {Manifest.permission.WRITE_EXTERNAL_STORAGE,
     Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.ACCESS_COARSE_LOCATION,
     Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.INTERNET};
-    private static final int REQUEST_CODE = 100;
+    private static final int REQUEST_CODE = 1;
     private static final LatLng LAT_LNG = new LatLng(31.2304, 121.4737);
     private static final String TAG = "MapViewDemoActivity";
     public void initialize(CordovaInterface cordova, CordovaWebView webView) {
@@ -158,7 +158,14 @@ public class HMSMapKit extends CordovaPlugin {
                 // after call getMapAsync method ,we can get HuaweiMap instance in this call back method
                 HuaweiMap hmap = huaweiMap;
                 hmap.setMyLocationEnabled(true);
-
+                hmap.getUiSettings().setMyLocationButtonEnabled(true);// Enable the my-location icon.
+                hmap.setOnMyLocationButtonClickListener(new HuaweiMap.OnMyLocationButtonClickListener() {
+                  @Override
+                  public boolean onMyLocationButtonClick() {
+                    //Toast.makeText(cordova.getContext(), "onMyLocationButtonClick clicked", Toast.LENGTH_SHORT).show();
+                    return false;
+                  }
+                });
                 // move camera by CameraPosition param ,latlag and zoom params can set here
                 CameraPosition build = new CameraPosition.Builder().target(new LatLng(33.8869, 9.5375)).zoom(5).build();
                 CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(build);
