@@ -47,3 +47,48 @@ Plug your android phone into the computer's USB port and install the apk
 ```
 adb install "platforms\android\app\build\outputs\apk\release\app-release.apk"
 ```
+### Documentation
+* cordova.plugins.HMSMapKit.loadMapWithMarkers(jsonObject,successCallback,failCallback)
+
+This will display a map with markers as described in the JSON file 「markersJson」
+```
+var markersJson=
+{
+	markers:[
+	{
+		lat:"33.622981",	//required
+		lng:"-7.477735",	//required
+		title:"kokoro",		//optional
+		snippet:"bokuNoIe"	//optional
+	},
+	//...
+	]
+};
+cordova.plugins.HMSMapKit.loadMapWithMarkers(
+			markersJson,
+			(msg) => {
+			    console.log(msg);
+			    loading.dismiss();
+			},(err) => {
+			    console.log(err);
+			    loading.dismiss();
+			});
+```
+* cordova.plugins.HMSPushKit.isHMSAvailable(successCallback,failCallback)
+```
+cordova.plugins.HMSMapKit.isHMSAvailable(
+			(msg) => {
+			    //HMS exists
+			},(err) => {
+			    //HMS doesn't exists
+			});
+```
+* cordova.plugins.HMSPushKit.isGMSAvailable(successCallback,failCallback)
+```
+cordova.plugins.HMSMapKit.isGMSAvailable(
+			(msg) => {
+			    //GMS exists
+			},(err) => {
+			    //GMS doesn't exists
+			});
+```
