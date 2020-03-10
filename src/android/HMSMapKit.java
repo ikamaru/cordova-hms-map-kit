@@ -92,9 +92,9 @@ public class HMSMapKit extends CordovaPlugin {
       if(available == com.huawei.hms.api.ConnectionResult.SUCCESS) {
         //everything is fine and the user can make map requests
         Log.d(TAG, "isServicesOK: HMS is working");
-        callbackContext.success("HMS exists");
+        callbackContext.success("HMS exists...");
       } else {
-        callbackContext.error("no GMS");
+        callbackContext.error("HMS doesn't exist");
       }
     }
     private void isGMSAvailable(CallbackContext callbackContext) {
@@ -102,9 +102,9 @@ public class HMSMapKit extends CordovaPlugin {
       if(available == ConnectionResult.SUCCESS) {
         //everything is fine and the user can make map requests
         Log.d(TAG, "isServicesOK: GMS is working");
-        callbackContext.success("GMS exists");
+        callbackContext.success("GMS exists...");
       } else {
-        callbackContext.error("no GMS");
+        callbackContext.error("GMS doesn't exist");
       }
     }
 
